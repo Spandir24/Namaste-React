@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 /*const heading = React.createElement("h1", {id: "heading", xyz: "abc"}, "HELLO WORLD FROM REACT!!");
 
 // console.log(heading);        // gives an obj
@@ -39,20 +42,17 @@ root.render(parent);
 </div>
 */
 
-/*const parent = React.createElement(
+const parent = React.createElement(
   "div",
   { id: "parent" },
   React.createElement("div", { id: "child" }, [
-    React.createElement("h1", {}, "I AM AN H1 TAG!"),
+    React.createElement("h1", {}, "I AM NAMASTE REACT!"),
     React.createElement("h2", {}, "I AM AN H2 TAG!"), //but this gives an error as well which we will study later.
   ]),
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(parent);
-*/
-
-
 
 //Now suppose we have to write this struc:
 /*<div id="parent">

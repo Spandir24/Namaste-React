@@ -1,27 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Namaste React</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
     <h1>HELLO top of the root!</h1>
     <div id="root">
-        <!-- <h1>AKASHAY IS HERE!</h1> -->
+      <!-- <h1>AKASHAY IS HERE!</h1> -->
     </div>
     <h1>HELLO below of the root!</h1>
 
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>              <!--MAIN FILE- core of React -->
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>       <!--BRIDGE BTW REACT AND BROWSER ()to access the DOM- react needed to modify the DOM--> 
-<!--but why 2 files: react has various utilities- browser, in mobiles,in code environ thus diff func are provided. -->
+    <!--<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>    
+    -->
+    <!--MAIN FILE- core of React -->
+    <!--<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> 
+    -->
+    <!--BRIDGE BTW REACT AND BROWSER ()to access the DOM- react needed to modify the DOM-->
 
-    </script>
+    <!--but why 2 links?: react has various utilities- browser, in mobiles,in code environ thus diff func are provided. -->
 
-    <script src=".\App.js">    // ORDER OF THESE COMMANDS MATTER: script linking the js file must coem after the cdn links 
-        
+    <script type="module" src="./App.js">
+      <!--ORDER OF THESE COMMANDS MATTER: script linking the js file must come after the cdn links -->
     </script>
-    
-</body>
+  </body>
 </html>
