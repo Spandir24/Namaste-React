@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "This is a React npm",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
@@ -23,5 +25,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
-  "browsersList": ["last 2 versions"]
+  "browsersList": [
+    "last 2 versions"
+  ]
 }

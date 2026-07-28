@@ -44,7 +44,7 @@ root.render(parent);
 
 const parent = React.createElement(
   "div",
-  { id: "parent" },
+  { vid: "parent" },
   React.createElement("div", { id: "child" }, [
     React.createElement("h1", {}, "I AM NAMASTE REACT!"),
     React.createElement("h2", {}, "I AM AN H2 TAG!"), //but this gives an error as well which we will study later.
