@@ -50,6 +50,7 @@ const Header = () => {
   );
 };
 
+
 //Body component
 const Body = () => {
   return (
