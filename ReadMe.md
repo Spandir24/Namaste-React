@@ -19,3 +19,25 @@
 - ZERO CONFIG TOOL
 -Tree Shaking (removes unnecessary code)
 -Different Production and Dev Bundles (produc builds have more optimizations compared to dev build)
+
+
+#FOOD ORDERING APP STRUCTURE:
+// Building 'Namaste Food' app
+
+/* COMPONENTS INCLUDE:
+
+HEADER
+    -logo
+    - nav items
+BODY
+    -search
+    -restaurantContainer
+        -restaurantCard
+          -img
+          -Name of Res, star rating, cuisine, delivery time
+FOOTER
+    -copyright
+    -links
+    -address
+    -contact
+*/
