@@ -59,4 +59,13 @@ import {ComponentName} from "path";
 
 
 
+# React Hook- 
+-Normal JS utility func 
+-written by Facebook devs
+-is present inside the 'React' folder in node modules
+-these need to be imported before use
+
+- 2 most imp types of hook:
+    - useState()         : (80% used)  - used to gen superppowerful state variables in React
+    -useEffect()         : (20% used)
 
