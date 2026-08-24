@@ -1,17 +1,12 @@
 import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
+import { useState } from "react";
 
 
 //Body component
 const Body = () => {
-  //STATE VARIABLE- (super powerful react variable): we use REACT HOOK (use state)
-
-
-
-
-
   //NORMAL JS VARIABLE
-  let listOfRestaurants = [
+  /*let listOfRestaurantsJS = [
     {
       data: {
         restaurant_id: "1",
@@ -49,6 +44,25 @@ const Body = () => {
       },
     },
   ];
+  */
+
+  // Now we understand 'React Hooks'
+  //LOCAL STATE VARIABLE- (super powerful react variable): we use REACT HOOK (useState)
+  // const [listOfRestaurants, setlistOfRestaurants] = useState(resList);
+
+  //above line is doing DESTRUCTURING- (wiz simplified below) 
+  const arr = useState(resList);
+  const [listOfRestaurants, setlistOfRestaurants] = arr;             // "ARRAY DESTRUCTURING"
+  //what the above line does is:
+  /*const listOfRestaurants = arr[0];
+  const setlistOfRestaurants = arr[1];
+  */
+
+
+
+
+
+
 
 
   return (
@@ -57,11 +71,14 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            listOfRestaurants = listOfRestaurants.filter( (res) => res.data.rating > 4);
-            console.log(listOfRestaurants);
-
+            const filteredList = listOfRestaurants.filter(
+              (res) => res.data.rating > 4.4,
+            );
+            setlistOfRestaurants(filteredList);
           }}
-        >Top Rated Restaurants</button>
+        >
+          Top Rated Restaurants
+        </button>
       </div>
       <div className="res-container">
         {/*<RestaurantCard
@@ -105,6 +122,6 @@ const Body = () => {
       </div>
     </div>
   );
-};
+};;
 
 export default Body;
