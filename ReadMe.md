@@ -41,3 +41,22 @@ FOOTER
     -address
     -contact
 */
+
+
+#TWO TYPES OF EXPORT/IMPORT-
+
+-Default Export/import:
+
+export default ComponentName;
+import ComponentName from "path";
+
+
+-Named Export/import:
+
+export const ComponentName;
+import {ComponentName} from "path";
+
+
+
+
+

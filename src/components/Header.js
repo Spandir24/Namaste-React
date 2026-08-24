@@ -1,5 +1,6 @@
-//Header component
+import {LOGO_URL} from "../utils/constants";
 
+//Header component
 
 const Header = () => {
   return (
@@ -8,7 +9,7 @@ const Header = () => {
       <div className="logo-container">
         <img
           className="logo"
-          src="https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Editable-Photoshop-Food-Logo-Design-PNG-Transparent.png"
+          src= {LOGO_URL}
           height="50px"
           width="50px"
         />
@@ -26,3 +27,5 @@ const Header = () => {
     </div>
   );
 };
+
+export default Header;
