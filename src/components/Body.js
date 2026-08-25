@@ -1,6 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 //Body component
@@ -46,7 +46,7 @@ const Body = () => {
   ];
   */
 
-  // Now we understand 'React Hooks'
+  // Now we understand 'React Hooks': 1) useState()-
   //LOCAL STATE VARIABLE- (super powerful react variable): we use REACT HOOK (useState)
   // const [listOfRestaurants, setlistOfRestaurants] = useState(resList);
 
@@ -59,8 +59,16 @@ const Body = () => {
   */
 
 
+  //2) useEffect()-
+  useEffect( () => {
+    fetchData();
+  }, [] )
 
 
+//console.log("Body rendered!");   // will obv be rendered before the UseEffect 
+
+
+const fetchData= () => {}
 
 
 
