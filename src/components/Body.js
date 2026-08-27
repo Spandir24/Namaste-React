@@ -64,11 +64,16 @@ const Body = () => {
     fetchData();
   }, [] )
 
+//console.log("Body rendered!");       // will obv be rendered before the UseEffect 
 
-//console.log("Body rendered!");   // will obv be rendered before the UseEffect 
+const fetchData= async () => {
+  const data = await fetch(
+    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9315929&lng=77.624480699999998&page_type=DESKTOP_WEB_LISTING",
+  ); // here 'data' is the response object returned by fetch()
 
-
-const fetchData= () => {}
+  const json = await data.json(); //The .json() method (that belongs to the 'data' Response object.) reads the response body and converts JSON data into a JavaScript object. It takes some time to read and process the response body. It returns a Promise, therefore, we use await.
+  console.log(json);
+}
 
 
 
