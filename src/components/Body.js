@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
+// import resList from "../utils/mockData";         // we can delete the mockData.js file too
 import { useState, useEffect } from "react";
+import Shimmer from "./shimmer";
 
 
 //Body component
@@ -48,11 +49,12 @@ const Body = () => {
 
   // Now we understand 'React Hooks': 1) useState()-
   //LOCAL STATE VARIABLE- (super powerful react variable): we use REACT HOOK (useState)
-  // const [listOfRestaurants, setlistOfRestaurants] = useState(resList);
+  const [listOfRestaurants, setlistOfRestaurants] = useState([]);
 
   //above line is doing DESTRUCTURING- (wiz simplified below) 
-  const arr = useState(resList);
+  /*const arr = useState(resList);
   const [listOfRestaurants, setlistOfRestaurants] = arr;             // "ARRAY DESTRUCTURING"
+  */
   //what the above line does is:
   /*const listOfRestaurants = arr[0];
   const setlistOfRestaurants = arr[1];
@@ -75,11 +77,19 @@ const fetchData= async () => {
 
     const json = await data.json(); //The .json() method (that belongs to the 'data' Response object.) reads the response body and converts JSON data into a JavaScript object. It takes some time to read and process the response body. It returns a Promise, therefore, we use await.
     console.log(json);
+
+    setlistOfRestaurants(json.data.cards[2].data.data.cards);            // here we display the received data on screen =>>>>>>> BUT THIS IS NOT A GOOD WAY OF WRITING CODE  =>>>>>> Thus, we can do 'OPTIONAL CHAINING'
+    setlistOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    
   } catch(error){
     console.log("Fetch failed:", error);
   }
 }
 
+// logic to display the spinning loader:
+if(listOfRestaurants.length===0){
+  return <Shimmer />
+}
 
 
 
