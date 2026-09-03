@@ -3,7 +3,6 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
 
-
 //Body component
 const Body = () => {
   //NORMAL JS VARIABLE
@@ -51,7 +50,7 @@ const Body = () => {
   //LOCAL STATE VARIABLE- (super powerful react variable): we use REACT HOOK (useState)
   const [listOfRestaurants, setlistOfRestaurants] = useState([]);
 
-  //above line is doing DESTRUCTURING- (wiz simplified below) 
+  //above line is doing DESTRUCTURING- (wiz simplified below)
   /*const arr = useState(resList);
   const [listOfRestaurants, setlistOfRestaurants] = arr;             // "ARRAY DESTRUCTURING"
   */
@@ -60,38 +59,34 @@ const Body = () => {
   const setlistOfRestaurants = arr[1];
   */
 
-
   //2) useEffect()-
-  useEffect( () => {
+  useEffect(() => {
     fetchData();
-  }, [] )
+  }, []);
 
-//console.log("Body rendered!");       // will obv be rendered before the UseEffect 
+  //console.log("Body rendered!");       // will obv be rendered before the UseEffect
 
-const fetchData= async () => {
-  try{
-    
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9315929&lng=77.624480699999998&page_type=DESKTOP_WEB_LISTING",
-    ); // here 'data' is the response object returned by fetch()
+  const fetchData = async () => {
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9315929&lng=77.624480699999998&page_type=DESKTOP_WEB_LISTING",
+      ); // here 'data' is the response object returned by fetch()
 
-    const json = await data.json(); //The .json() method (that belongs to the 'data' Response object.) reads the response body and converts JSON data into a JavaScript object. It takes some time to read and process the response body. It returns a Promise, therefore, we use await.
-    console.log(json);
+      const json = await data.json(); //The .json() method (that belongs to the 'data' Response object.) reads the response body and converts JSON data into a JavaScript object. It takes some time to read and process the response body. It returns a Promise, therefore, we use await.
+      console.log(json);
 
-    setlistOfRestaurants(json.data.cards[2].data.data.cards);            // here we display the received data on screen =>>>>>>> BUT THIS IS NOT A GOOD WAY OF WRITING CODE  =>>>>>> Thus, we can do 'OPTIONAL CHAINING'
-    setlistOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    
-  } catch(error){
-    console.log("Fetch failed:", error);
+      setlistOfRestaurants(json.data.cards[2].data.data.cards); // here we display the received data on screen =>>>>>>> BUT THIS IS NOT A GOOD WAY OF WRITING CODE  =>>>>>> Thus, we can do 'OPTIONAL CHAINING'
+      setlistOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    } catch (error) {
+      console.log("Fetch failed:", error);
+    }
+  };
+
+  // logic to display the spinning loader:-
+  //CONDITIONAL RENDERING
+  /*if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
   }
-}
-
-// logic to display the spinning loader:
-if(listOfRestaurants.length===0){
-  return <Shimmer />
-}
-
-
 
   return (
     <div className="body">
@@ -109,38 +104,7 @@ if(listOfRestaurants.length===0){
         </button>
       </div>
       <div className="res-container">
-        {/*<RestaurantCard
-          resName="KFC"
-          cuisine="American"
-        /> */}
-
-        {/* multiple same cards: */}
-        {/* <RestaurantCard/>                        
-        <RestaurantCard/>
-        <RestaurantCard/>
-        <RestaurantCard/>
-        <RestaurantCard/>
-        <RestaurantCard/>
-        <RestaurantCard/>
-        <RestaurantCard/> */}
-
-        {/*Dynamic card making: */}
-        {/*<RestaurantCard resData={resList[0]} />
-        <RestaurantCard resData={resList[1]} />
-        <RestaurantCard resData={resList[2]} />
-        <RestaurantCard resData={resList[3]} />
-        <RestaurantCard resData={resList[4]} />  
-        */}
-
-        {/*Looping to generate the reqd no of restaurant cards */}
-        {/*resList.map((restaurant) => (
-          <RestaurantCard
-            resData={restaurant}
-          />
-        ))
-        */}
-
-        {/*To rectify the key error */}
+        //To rectify the key error 
         {listOfRestaurants.map((restaurant) => (
           <RestaurantCard
             key={restaurant.data.restaurant_id}
@@ -150,6 +114,35 @@ if(listOfRestaurants.length===0){
       </div>
     </div>
   );
-};;
+  */
+
+  //OR Another way to write the above situation(ie., displaying shimmer effect or filtered data with rating > 4.4 ) w/o using 2 return sttaements is via-: TERNARY operator
+  return listOfRestaurants.length===0 ? (<Shimmer />) : (
+  <div className="body">
+    <div className="filter">
+      <button
+        className="filter-btn"
+        onClick={() => {
+          const filteredList = listOfRestaurants.filter(
+            (res) => res.data.rating > 4.4,
+          );
+          setlistOfRestaurants(filteredList);
+        }}
+      >
+        Top Rated Restaurants
+      </button>
+    </div>
+    <div className="res-container">
+      {/*To rectify the key error */}
+      {listOfRestaurants.map((restaurant) => (
+        <RestaurantCard
+          key={restaurant.data.restaurant_id}
+          resData={restaurant}
+        />
+      ))}
+    </div>
+  </div>
+  );
+};
 
 export default Body;
