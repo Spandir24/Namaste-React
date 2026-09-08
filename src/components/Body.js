@@ -50,6 +50,8 @@ const Body = () => {
   //LOCAL STATE VARIABLE- (super powerful react variable): we use REACT HOOK (useState)
   const [listOfRestaurants, setlistOfRestaurants] = useState([]);
 
+  const[searchText, setSearchText]= useState("");
+
   //above line is doing DESTRUCTURING- (wiz simplified below)
   /*const arr = useState(resList);
   const [listOfRestaurants, setlistOfRestaurants] = arr;             // "ARRAY DESTRUCTURING"
@@ -120,6 +122,26 @@ const Body = () => {
   return listOfRestaurants.length===0 ? (<Shimmer />) : (
   <div className="body">
     <div className="filter">
+
+      {/* Category search button */}
+      <div className="Search">
+        <input type="text" className="search-box" value={searchText} onChange={ (e) => {
+          setSearchText(e.target.value)
+        } } />
+        <button onClick={ () => {
+          //filter the restaurant cards & update the UI
+          //searchText
+          console.log(searchText);
+  
+          const filteredRestaurant= listOfRestaurants.filter( (res)=> {res.data.name.toLowerCase().includes(searchText.toLowerCase())} )         // becomes case insensitive now.. YAYY
+
+          setlistOfRestaurants(filteredRestaurant);   // updating onto webpage
+
+        } }>Search</button>
+      </div>
+
+
+      {/*Top Restaurants list */}
       <button
         className="filter-btn"
         onClick={() => {
