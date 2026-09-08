@@ -71,17 +71,34 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9315929&lng=77.624480699999998&page_type=DESKTOP_WEB_LISTING",
-      ); // here 'data' is the response object returned by fetch()
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
+      );
+      {
+        /*DELHI API */
+      } // here 'data' is the response object returned by fetch()
+
+      {
+        /* "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
+         */
+      }
 
       const json = await data.json(); //The .json() method (that belongs to the 'data' Response object.) reads the response body and converts JSON data into a JavaScript object. It takes some time to read and process the response body. It returns a Promise, therefore, we use await.
       console.log(json);
+      console.log(
+        json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants,
+      );
 
-      setlistOfRestaurants(json.data.cards[2].data.data.cards); // here we display the received data on screen =>>>>>>> BUT THIS IS NOT A GOOD WAY OF WRITING CODE  =>>>>>> Thus, we can do 'OPTIONAL CHAINING'
-      setlistOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);       // we keep this unchanged
-      setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);        // we filter acc to our need, display it on UI and refresh this after every page reload/ component re-render
-
-
+      setlistOfRestaurants(
+        json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants,
+      ); // here we display the received data on screen =>>>>>>> BUT THIS IS NOT A GOOD WAY OF WRITING CODE  =>>>>>> Thus, we can do 'OPTIONAL CHAINING'
+      setlistOfRestaurants(
+        json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle
+          .restaurants,
+      ); // we keep this unchanged
+      setFilteredRestaurant(
+        json?.data?.cards[4]?.card?.card?.gridElements.infoWithStyle
+          .restaurants,
+      ); // we filter acc to our need, display it on UI and refresh this after every page reload/ component re-render
     } catch (error) {
       console.log("Fetch failed:", error);
     }
@@ -92,6 +109,7 @@ const Body = () => {
   /*if (listOfRestaurants.length === 0) {
     return <Shimmer />;
   }
+
 
   return (
     <div className="body">
@@ -109,19 +127,17 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        //To rectify the key error 
+        //To rectify the key error
         {listOfRestaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.data.restaurant_id}
-            resData={restaurant}
-          />
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
     </div>
   );
   */
 
-  //OR Another way to write the above situation(ie., displaying shimmer effect or filtered data with rating > 4.4 ) w/o using 2 return sttaements is via-: TERNARY operator
+  //OR Another way to write the above situation(ie., displaying shimmer effect or filtered data with rating > 4.4 ) w/o using 2 return statements is via-: TERNARY operator
+  //ALSO, The second return will never run, because JavaScript already returned from the first return.
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -143,9 +159,9 @@ const Body = () => {
               console.log(searchText);
 
               //filter the restaurant cards & update the UI
-              const filteredRestaurant = listOfRestaurants.filter((res) => {
-                res.data.name.toLowerCase().includes(searchText.toLowerCase());
-              }); // becomes case insensitive now.. YAYY
+              const filteredRestaurant = listOfRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase()),
+              ); // becomes case insensitive now.. YAYY
 
               setFilteredRestaurant(filteredRestaurant);
             }}
@@ -159,9 +175,9 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
-              (res) => res.data.rating > 4.4,
+              (res) => res.info.rating > 4.4,
             );
-            setlistOfRestaurants(filteredList);
+            setFilteredRestaurant(filteredList);
           }}
         >
           Top Rated Restaurants
@@ -170,11 +186,8 @@ const Body = () => {
 
       <div className="res-container">
         {/*To rectify the key error */}
-        {setFilteredRestaurant.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.data.restaurant_id}
-            resData={restaurant}
-          />
+        {filteredRestaurant.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
     </div>
