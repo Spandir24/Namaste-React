@@ -7,6 +7,8 @@ import Body from "./components/Body";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { StarIcon } from "@hugeicons/core-free-icons";
 
+import About from "./components/About";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 
 
@@ -21,5 +23,19 @@ const AppLayout = () => {
   );
 };
 
+const appRouter= createBrowserRouter([
+  {path: "/",
+    element: <AppLayout />
+  },
+  {
+    path: "/about",
+    element: <About />
+  }
+]) 
+
+
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+// root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);
